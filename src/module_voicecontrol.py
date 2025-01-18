@@ -8,10 +8,13 @@ mapping natural language commands to servo control functions.
 """
 
 from module_servoctl import (
-    stepForward, 
-    turnRight, 
-    turnLeft, 
-    poseaction, 
+    height_neutral_to_up,
+    torso_neutral_to_forwards,
+    torso_bump,
+    torso_return,
+    turn_right,
+    turn_left,
+    poseaction,
     unposeaction,
     portMainPlus,
     portMainMinus,
@@ -27,21 +30,28 @@ from module_servoctl import (
     starHandMinus
 )
 
+def step_forward():
+    """Sequence of movements to step forward"""
+    height_neutral_to_up()
+    torso_neutral_to_forwards()
+    torso_bump()
+    torso_return()
+
 # Movement command mappings
 MOVEMENT_COMMANDS = {
     # Basic movement
     "move forward": {
-        "function": stepForward,
+        "function": step_forward,
         "response": "Moving forward.",
         "aliases": ["walk forward", "step forward", "go forward"]
     },
     "turn right": {
-        "function": turnRight,
+        "function": turn_right,
         "response": "Turning right.",
         "aliases": ["rotate right", "go right"]
     },
     "turn left": {
-        "function": turnLeft,
+        "function": turn_left,
         "response": "Turning left.",
         "aliases": ["rotate left", "go left"]
     },
