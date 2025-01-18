@@ -14,8 +14,8 @@ from module_servoctl import (
     torso_return,
     turn_right,
     turn_left,
-    poseaction,
-    unposeaction,
+    neutral_to_down,
+    down_to_up,
     portMainPlus,
     portMainMinus,
     starMainPlus,
@@ -35,6 +35,16 @@ def step_forward():
     height_neutral_to_up()
     torso_neutral_to_forwards()
     torso_bump()
+    torso_return()
+
+def sit():
+    """Sequence for sitting down"""
+    neutral_to_down()
+    torso_neutral_to_forwards()
+    down_to_up()
+
+def stand():
+    """Sequence for standing up"""
     torso_return()
 
 # Movement command mappings
@@ -58,12 +68,12 @@ MOVEMENT_COMMANDS = {
     
     # Pose commands
     "stand up": {
-        "function": unposeaction,
+        "function": stand,
         "response": "Standing up.",
         "aliases": ["get up", "rise"]
     },
     "sit down": {
-        "function": poseaction,
+        "function": sit,
         "response": "Sitting down.",
         "aliases": ["lower", "crouch"]
     },
